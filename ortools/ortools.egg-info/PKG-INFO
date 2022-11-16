@@ -3,10 +3,10 @@ Name: ortools
 Version: 9.0.9052
 Summary: Google OR-Tools python libraries and modules
 Home-page: https://developers.google.com/optimization/
-Download-URL: https://github.com/google/or-tools/releases
 Author: Google LLC
 Author-email: or-tools@google.com
 License: Apache 2.0
+Download-URL: https://github.com/google/or-tools/releases
 Keywords: operations research,constraint programming,linear programming,flow algorithms,python
 Platform: UNKNOWN
 Classifier: Development Status :: 5 - Production/Stable
