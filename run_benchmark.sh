@@ -4,7 +4,7 @@
 
 
 # JESSE_DIR=/home/jesse/Documents/GitProjects/research-project
-JONA_DIR=/home/jeroen/Documents/BCP-paper
+JONA_DIR=/data/BCP-paper
 PYTHONPATH=$JONA_DIR:$PYTHONPATH python3.9 $JONA_DIR/python/benchmarks/comparison_25percent_1teams.py | tee comparison_25percent_1teams.txt
 PYTHONPATH=$JONA_DIR:$PYTHONPATH python3.9 $JONA_DIR/python/benchmarks/comparison_25percent_3teams.py | tee comparison_25percent_1teams.txt
 PYTHONPATH=$JONA_DIR:$PYTHONPATH python3.9 $JONA_DIR/python/benchmarks/comparison_25percent_6teams.py | tee comparison_25percent_1teams.txt
