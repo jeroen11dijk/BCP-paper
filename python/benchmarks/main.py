@@ -8,14 +8,14 @@ from tqdm import tqdm
 from graph_times import graph_results
 from map import MapGenerator
 from python.algorithm import MapfAlgorithm
-from python.benchmarks.comparison import CBSInmatch, CBSPrematch, BCPInmatch, BCPPrematch
+from python.benchmarks.comparison import CBSTA, CBM, CBSPrematch, CBSInmatch, BCPPrematch, BCPInmatch
 from python.benchmarks.parse_map import MapParser
 from python.benchmarks.run_with_timeout import run_with_timeout
 # from python.benchmarks.comparison.icts import ICTS
 from python.benchmarks.util import output_data, read_from_file
 
 this_dir = pathlib.Path(__file__).parent.absolute()
-name = "32x32_6"
+name = "main"
 
 
 def generate_maps():
@@ -55,9 +55,9 @@ def run(solver: Callable[[], MapfAlgorithm], bm_name: str, parse_maps: bool = Tr
 
     fname = batchdir / f"results_{bm_name}.txt"
 
-    if fname.exists():
-        print(f"data exists for {bm_name}")
-        return fname, bm_name
+    # if fname.exists():
+    #     print(f"data exists for {bm_name}")
+    #     return fname, bm_name
 
     # num agents : solutions
     results: dict[int, list[Optional[int]]] = {}
@@ -74,18 +74,18 @@ def run(solver: Callable[[], MapfAlgorithm], bm_name: str, parse_maps: bool = Tr
         num_agents = len(problems[0][1].goals)
 
         partname = pathlib.Path(str(fname) + f".{num_agents}agents")
-        if partname.exists():
-            print(f"found data for part {num_agents}")
-            results[num_agents] = read_from_file(partname, num_agents)
-            continue
+        # if partname.exists():
+        #     print(f"found data for part {num_agents}")
+        #     results[num_agents] = read_from_file(partname, num_agents)
+        #     continue
         all_results = run_with_timeout(solver(), problems, parse_maps, 10)  # test with low timeout
         sols_inmatch, _ = zip(*all_results)
         tqdm.write(f"{bm_name} with {num_agents} agents: {sols_inmatch}")
         times[num_agents] = sols_inmatch
         output_data(partname, times)
     # clean-up
-    for file in os.listdir("temp"):
-        os.remove("temp/" + file)
+    # for file in os.listdir("temp"):
+    #     os.remove("temp/" + file)
 
     tqdm.write(str(results))
 
@@ -99,25 +99,25 @@ def main():
 
     files: list[tuple[pathlib.Path, str]] = []
 
-    files.append(run(
-        lambda: BCPPrematch(),
-        "BCPPrematch"
-    ))
+    # files.append(run(
+    #     lambda: BCPPrematch(),
+    #     "BCPPrematch"
+    # ))
 
-    files.append(run(
-        lambda: BCPInmatch(),
-        "BCPInmatch"
-    ))
+    # files.append(run(
+    #     lambda: BCPInmatch(),
+    #     "BCPInmatch"
+    # ))
 
-    files.append(run(
-        lambda: CBSPrematch(),
-        "CBSPrematch"
-    ))
+    # files.append(run(
+    #     lambda: CBSPrematch(),
+    #     "CBSPrematch"
+    # ))
 
-    files.append(run(
-        lambda: CBSInmatch(),
-        "CBSInmatch"
-    ))
+    #files.append(run(
+    #    lambda: CBSInmatch(),
+    #    "CBSInmatch"
+    #))
 
     # files.append(run(
     #     lambda: CBM(),
