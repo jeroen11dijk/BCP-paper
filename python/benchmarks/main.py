@@ -3,6 +3,7 @@ import os
 import pathlib
 from typing import Optional, Callable
 
+from mapf_branch_and_bound.bbsolver import compute_sol_cost
 from tqdm import tqdm
 
 from graph_times import graph_results
@@ -122,6 +123,11 @@ def main():
     files.append(run(
         lambda: CBM(),
         "CBM"
+    ))
+
+    files.append(run(
+        lambda: CBSTA(),
+        "CBSTA"
     ))
 
     # graph_results(
