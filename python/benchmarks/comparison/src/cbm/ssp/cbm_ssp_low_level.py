@@ -12,7 +12,6 @@ from python.benchmarks.comparison.src.ctnode import CTNode
 from python.benchmarks.comparison.src.cbm.cbm_agent import CBMTeam
 from python.benchmarks.comparison.src.cbm.cbm_paths import CBMAgentSolution, CBMMakespanFullSolution
 from python.benchmarks.comparison.src.data.constraints import Constraint
-from python.benchmarks.comparison.src.debug.nf_drawer import draw_nf_graph
 from python.benchmarks.comparison.src.grid import Grid
 
 
@@ -161,8 +160,6 @@ class CBMSSPLowLevelAgentSolver(CBMLowLevelAgentSolver):
                     flow.Tail(edge_i),
                     flow.Head(edge_i),
                     label=f"{flow.UnitCost(edge_i)}/{flow.Capacity(edge_i)}")
-
-        draw_nf_graph(add_nodes_edges)
 
         if self.graph_manager.cost_flow.Solve() == self.graph_manager.cost_flow.OPTIMAL:  # yapf: disable
             return self.graph_manager.assemble_flow_path(

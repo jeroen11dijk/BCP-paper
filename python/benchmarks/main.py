@@ -119,20 +119,20 @@ def main():
     #    "CBSInmatch"
     #))
 
-    # files.append(run(
-    #     lambda: CBM(),
-    #     "CBM"
-    # ))
+    files.append(run(
+        lambda: CBM(),
+        "CBM"
+    ))
 
-    graph_results(
-        *files,
-        batchdir / f"{name}",
-        under="number of agents",
-        save=True,
-        bounds=False,
-        legend=True,
-        limit=100,
-    )
+    # graph_results(
+    #     *files,
+    #     batchdir / f"{name}",
+    #     under="number of agents",
+    #     save=True,
+    #     bounds=False,
+    #     legend=True,
+    #     limit=100,
+    # )
 
 
 if __name__ == '__main__':

@@ -8,8 +8,6 @@ from mapfmclient import Problem
 
 from python.benchmarks.comparison.src.data.conflicts import VertexConflict, EdgeConflict
 from python.benchmarks.comparison.src.data.constraints import VertexConstraint, EdgeConstraint
-from python.benchmarks.comparison.src.debug.debug import high_level_debug_hook
-from python.benchmarks.comparison.src.env import get_env
 from python.benchmarks.comparison.src.low_level import LowLevelSolver
 from python.benchmarks.comparison.src.ctnode import CTNode
 from python.benchmarks.comparison.src.paths import FullSolution
@@ -26,32 +24,6 @@ class HighLevelSolver:
         # Telemetry
         self.amount_of_conflicts = 0
 
-        if get_env().debug.output_solution:
-            solution_dir = Path(__file__).parent / "debug" / "solution"
-            solution_dir.mkdir(parents=True, exist_ok=True)
-            self.file = open(solution_dir / f"out_{time.time()}.txt", "w+")
-
-    def log_solution(self, node: CTNode):
-        if not get_env().debug.output_solution:
-            return
-
-        text = f"C{node.cost}\n"
-
-        items = sorted(node.full_solution.items(), key=lambda s: s[0].id)
-        for team, paths in items:
-            paths_s = sorted(paths, key=lambda p: p[0].id)
-            for (agent, path) in paths_s:
-                text += f"{team.id}{agent.id} - "
-                text += " ".join(map(lambda p: str(p), path))
-                text += "\n"
-
-        for ct in node.constraints:
-            text += str(ct)
-            text += "\n"
-
-        text += "\n\n"
-        self.file.write(text)
-
     def solve(self, root: CTNode) -> FullSolution:
         sol = self.low_level_solver.solve_all_agents(root)
         if sol is None:
@@ -63,9 +35,6 @@ class HighLevelSolver:
 
         while self.OPEN.qsize() > 0:
             current_node = self.OPEN.get()
-
-            self.log_solution(current_node)
-            high_level_debug_hook(root, current_node)
 
             first_conflict = current_node.full_solution.get_first_conflict()
             if first_conflict is None:
