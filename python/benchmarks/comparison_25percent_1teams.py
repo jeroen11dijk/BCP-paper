@@ -171,7 +171,7 @@ def main():
         under="number of agents",
         save=True,
         bounds=False,
-        legend=False,
+        legend=True,
     )
 
 
