@@ -42,7 +42,7 @@ def generate_maps():
             30,  # number of maps
             32, 32,  # size
             i,  # number of agents
-            12,  # number of teams
+            3,  # number of teams
             prefix=name,
             min_goal_distance=0,
             open_factor=0.65,
