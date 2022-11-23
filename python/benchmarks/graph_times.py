@@ -1,19 +1,16 @@
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
-import numpy as np
 
 colors = [
-    (204, 68, 82),
-    (36, 97, 128),
-    (128, 29, 39),
-    (47, 152, 204),
-    (17, 128, 42),
-    (67, 204, 98),
-    (57, 204, 174),
-    (102, 82, 74),
-    (128, 124, 23),
-    (204, 111, 78),
+    "#648fff",
+    "#785ef0",
+    "#dc267f",
+    "#fe6100",
+    "#ffb000",
 ]
+
+linestyles = {"CBSPrematch": '--', "BCPPrematch": '-', "CBS-TA": (5, (10, 3)), "CBSInmatch": ":", "BCPInmatch": '-.'}
+labels = {"CBSPrematch": 'CBS-Outmatch', "BCPPrematch": 'BCP-Outmatch', "CBS-TA": 'CBS-TA', "CBSInmatch": 'CBS-Inmatch', "BCPInmatch": 'BCP-Inmatch'}
 background = (34, 39, 46)
 
 
@@ -49,8 +46,6 @@ def percentile(l: list[float], perc: float) -> float:
 
 def graph_results(*args, under,
                   save=True,
-                  bounds=True,
-                  fill_between=False,
                   graph_times=False,
                   graph_percentage=True,
                   legend=True,
@@ -114,21 +109,24 @@ def graph_results(*args, under,
                 times90pydata = []
 
             lines = f.readlines()
-            longest = int(lines[-1].split(":")[0])
+            first_non_solved = False
             for l in [l.strip() for l in lines if l.strip() != ""]:
                 before, after = l.split(":")
                 after_list = eval(after)
                 num_agents = int(before)
-                for i in after_list:
-                    if i is not None and i > 120:
-                        print(i)
                 if limit is not None:
                     after_list = [x if x is None or x <= limit else None for x in after_list]
                 fraction_solved = (len(after_list) - after_list.count(None)) / len(after_list)
-
                 solved_times = [i for i in after_list if i is not None]
 
+                if fraction_solved == 0 and num_agents > 10 and not first_non_solved:
+                    first_non_solved = True
+                    if num_agents > longest:
+                        longest = num_agents
+
                 if fraction_solved != 0:
+                    if num_agents == 100:
+                        longest = 100
                     if graph_percentage:
                         percentagexdata.append(num_agents)
                         percentageydata.append(fraction_solved * 100)
@@ -146,56 +144,20 @@ def graph_results(*args, under,
                 percentage.plot(
                     percentagexdata,
                     percentageydata,
-                    color=rgb_to_colour(*colors[plt_index]),
-                    label=label,
-                    linewidth=3,
+                    linestyle=linestyles[label],
+                    color=colors[plt_index],
+                    label=labels[label],
+                    linewidth=2
                 )
-
-                if fill_between:
-                    if not ppydata:
-                        percentage.fill_between(
-                            percentagexdata,
-                            0,
-                            percentageydata,
-                            color=rgb_to_colour(*lighten(*colors[plt_index], 0.2), transparency_fraction=50/100)
-                        )
-                    else:
-                        while len(ppydata) < len(percentageydata):
-                            ppydata.append(0)
-                        percentage.fill_between(
-                            percentagexdata,
-                            ppydata,
-                            percentageydata,
-                            color=rgb_to_colour(*lighten(*colors[plt_index], 0.2), transparency_fraction=50 / 100)
-                        )
-
-                    ppydata = percentageydata
-
-            if graph_times:
-                times.plot(
-                    timesxdata,
-                    times50pydata,
-                    color=rgb_to_colour(*colors[plt_index]),
-                    label=label,
-                    linewidth=3,
-                )
-
-                if bounds:
-                    times.fill_between(
-                        timesxdata,
-                        times10pydata,
-                        times90pydata,
-                        color=rgb_to_colour(*lighten(*colors[plt_index], 0.2), transparency_fraction=50/100)
-                    )
-
     if graph_percentage:
         percentage.set_xlim(0, longest)
     else:
         times.set_xlim(0, longest + 1)
 
     if legend:
-        plt.legend(facecolor='white', framealpha=1, frameon=True, edgecolor="black")
+        plt.legend(facecolor='white', framealpha=1, frameon=True, edgecolor="black", prop={'size': 10})
     plt.show()
     if save:
+        print(save_location)
         # fig.savefig(f"{save_location}.eps", bbox_inches="tight", pad_inches=0, format='eps')
         fig.savefig(f"{save_location}.png", pad_inches=0, format='png')
