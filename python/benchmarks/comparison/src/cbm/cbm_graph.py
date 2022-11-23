@@ -8,14 +8,13 @@ from python.benchmarks.comparison.src.cbm.cbm_agent import CBMTeam
 from python.benchmarks.comparison.src.cbm.cbm_paths import CBMAgentSolution
 from python.benchmarks.comparison.src.data.constraints import Constraint, VertexConstraint, EdgeConstraint
 from python.benchmarks.comparison.src.data.vertex import Vertex
-from python.benchmarks.comparison.src.env import get_env
 from python.benchmarks.comparison.src.grid import Grid
 from python.benchmarks.comparison.src.util import range_incl
 
 NodeId = int
 EdgeId = int
 Time = int
-
+enable_viz = False
 
 class NodeStats:
     def __init__(self, v: Optional[Vertex], t: Time, name: Optional[str]):
@@ -174,24 +173,10 @@ class GraphManager:
                 logging.info("Searching for SIC now!")
                 self.has_updated_for_sic = True
 
-        enable_viz = get_env().debug.nf_visualize
-
         is_initial_run = self.last_node_i == 0
         t_min = self.graph_t_max + 1
 
-        # Reset the node supply to 0 for the last run
-        if is_initial_run and self.disappearing_agents:
-            main_id = self.last_node_i
-            self.create_node(main_id)
-
-            self.disappear_goal_main_id = main_id
-            self.node_stats[main_id] = NodeStats(
-                None, -1, f"GOAL_MAIN" if enable_viz else None)
-
-            self.update_node_supply(main_id, -len(self.team.goals))
-
-            self.last_node_i += 1
-        elif not is_initial_run:
+        if not is_initial_run:
             if t_max > self.graph_t_max:
                 logging.info(
                     f"Extending graph for team from {self.graph_t_max} {self.team.id} to t{t_max}"
@@ -368,7 +353,7 @@ class GraphManager:
                     self.team.agents))
 
         goals_i = set(
-            map(lambda g: self.disappear_goal_main_id, self.team.goals))
+            map(lambda g: self.nodes_out_i[g][t_max], self.team.goals))
 
         for a, start_i in self.starts_i:
             curr_node_i = start_i
