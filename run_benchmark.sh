@@ -5,8 +5,8 @@
 
 # JESSE_DIR=/home/jesse/Documents/GitProjects/research-project
 JONA_DIR=/data/BCP-paper
-PYTHONPATH=$JONA_DIR:$PYTHONPATH python3.9 $JONA_DIR/python/benchmarks/comparison_25percent_1teams | tee comparison_25percent_1teams.txt
-PYTHONPATH=$JONA_DIR:$PYTHONPATH python3.9 $JONA_DIR/python/benchmarks/comparison_25percent_3teams | tee comparison_25percent_1teams.txt
-PYTHONPATH=$JONA_DIR:$PYTHONPATH python3.9 $JONA_DIR/python/benchmarks/comparison_25percent_6teams | tee comparison_25percent_1teams.txt
-PYTHONPATH=$JONA_DIR:$PYTHONPATH python3.9 $JONA_DIR/python/benchmarks/comparison_25percent_12teams | tee comparison_25percent_1teams.txt
+PYTHONPATH=$JONA_DIR:$PYTHONPATH python3.9 $JONA_DIR/python/benchmarks/comparison_25percent_1teams.py | tee comparison_25percent_1teams.txt
+PYTHONPATH=$JONA_DIR:$PYTHONPATH python3.9 $JONA_DIR/python/benchmarks/comparison_25percent_3teams.py | tee comparison_25percent_1teams.txt
+PYTHONPATH=$JONA_DIR:$PYTHONPATH python3.9 $JONA_DIR/python/benchmarks/comparison_25percent_6teams.py | tee comparison_25percent_1teams.txt
+PYTHONPATH=$JONA_DIR:$PYTHONPATH python3.9 $JONA_DIR/python/benchmarks/comparison_25percent_12teams.py | tee comparison_25percent_1teams.txt
 PYTHONPATH=$JONA_DIR:$PYTHONPATH python3.9 $JONA_DIR/python/benchmarks/comparison_warehouse.py | tee comparison_25percent_1teams.txt
