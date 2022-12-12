@@ -1,6 +1,6 @@
 #!/bin/bash
 
-repo=/home/jeroen/Documents/BCP-paper
+repo=/data/BCP-paper
 #PYTHONPATH=$repo:$PYTHONPATH python3.9 $repo/python/benchmarks/comparison_25percent_1teams.py
 #PYTHONPATH=$repo:$PYTHONPATH python3.9 $repo/python/benchmarks/comparison_25percent_3teams.py
 #PYTHONPATH=$repo:$PYTHONPATH python3.9 $repo/python/benchmarks/comparison_25percent_6teams.py
