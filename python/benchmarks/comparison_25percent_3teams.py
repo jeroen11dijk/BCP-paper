@@ -1,4 +1,3 @@
-# from multiprocessing import Pool
 import os
 import pathlib
 from typing import Optional, Callable
@@ -11,14 +10,10 @@ from python.benchmarks.graph_times import graph_results
 from python.benchmarks.map import MapGenerator
 from python.benchmarks.parse_map import MapParser
 from python.benchmarks.run_with_timeout import run_with_timeout
-# from python.benchmarks.comparison.icts import ICTS
 from python.benchmarks.util import read_from_file, output_data
 
 this_dir = pathlib.Path(__file__).parent.absolute()
 name = "32x32_3"
-
-
-# processes = 10
 
 
 def generate_maps():

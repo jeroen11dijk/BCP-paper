@@ -45,7 +45,8 @@ class MapGenerator:
             count_traversable = 0
             for y in range(height):
                 count_traversable += width - sum(grid[y])
-            if (count_traversable < (open_factor * width * height * 0.25 * max_neighbors) or self.__num_3neighbors(grid) < sum(
+            if (count_traversable < (open_factor * width * height * 0.25 * max_neighbors) or self.__num_3neighbors(
+                    grid) < sum(
                     num_agents) - 1) and file is None:
                 tqdm.write("Not enough traversable cells or not solvable, running again!")
             else:
@@ -53,7 +54,8 @@ class MapGenerator:
                 while result is None:
                     try:
                         # connect
-                        result = self.__generate_agent_positions(grid, width, height, num_agents, min_goal_distance, max_goal_distance)
+                        result = self.__generate_agent_positions(grid, width, height, num_agents, min_goal_distance,
+                                                                 max_goal_distance)
                     except:
                         pass
                 starts, goals = result
@@ -76,7 +78,8 @@ class MapGenerator:
                           min_goal_distance: float = 0.5,
                           max_goal_distance: float = 1,
                           file=None):
-        problem = self.generate_map(width, height, num_agents, open_factor, max_neighbors, min_goal_distance, max_goal_distance, file)
+        problem = self.generate_map(width, height, num_agents, open_factor, max_neighbors, min_goal_distance,
+                                    max_goal_distance, file)
         self.__store_map(name, problem)
 
     def generate_even_batch(self,
@@ -96,7 +99,7 @@ class MapGenerator:
                             ):
         package_name = package_name if package_name is not None else f"{prefix}-{width}x{height}-A{agents}_T{teams}"
         file_name = package_name if file_name is None else file_name
-        min_team_count = int(agents/teams)
+        min_team_count = int(agents / teams)
         diff = agents - (min_team_count * teams)
         num_agents = [min_team_count for _ in range(teams)]
         os.mkdir(os.path.join(self.map_root, package_name))
@@ -110,7 +113,8 @@ class MapGenerator:
             if int(i) < 100 < amount:
                 i = f"0{i}"
             name = os.path.join(package_name, f"{file_name}-{i}")
-            actions.append((name, width, height, num_agents, open_factor, max_neighbors, min_goal_distance, max_goal_distance, file))
+            actions.append((name, width, height, num_agents, open_factor, max_neighbors, min_goal_distance,
+                            max_goal_distance, file))
 
         with Pool(processes) as p:
             p.starmap(self.generate_map_file, actions)

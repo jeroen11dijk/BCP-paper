@@ -1,12 +1,11 @@
-import subprocess
 import re
+import subprocess
 
 from mapf_branch_and_bound.bbsolver import solve_bb
 from mapfmclient import Problem as cProblem, Solution
 
 from python.algorithm import MapfAlgorithm
 
-# cbs_path = "/home/jesse/Documents/GitProjects/CBS/CBSH2-RTC-main/cbs"
 cbs_path = "/data/BCP-paper/python/benchmarks/comparison/cbs-prematch/cbs-prematch"
 
 
@@ -49,7 +48,7 @@ class CBSSolver(MapfAlgorithm):
         args += ["-k", str(num_of_agents)]
         if bound is not None:
             args += ["-u", str(bound)]  # + len(problem.starts)
-        subprocess.run(args, timeout=problem.timeout, stdout=subprocess.DEVNULL)  # .returncode , stdout=subprocess.DEVNULL
+        subprocess.run(args, timeout=problem.timeout, stdout=subprocess.DEVNULL)
 
         paths = []
 

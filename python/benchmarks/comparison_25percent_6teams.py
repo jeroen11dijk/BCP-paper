@@ -2,7 +2,6 @@ import os
 import pathlib
 from typing import Optional, Callable
 
-from mapf_branch_and_bound.bbsolver import compute_sol_cost
 from tqdm import tqdm
 
 from python.algorithm import MapfAlgorithm
@@ -11,12 +10,10 @@ from python.benchmarks.graph_times import graph_results
 from python.benchmarks.map import MapGenerator
 from python.benchmarks.parse_map import MapParser
 from python.benchmarks.run_with_timeout import run_with_timeout
-# from python.benchmarks.comparison.icts import ICTS
 from python.benchmarks.util import read_from_file, output_data
 
 this_dir = pathlib.Path(__file__).parent.absolute()
 name = "32x32_6"
-processes = 1
 
 
 def generate_maps():
@@ -107,38 +104,6 @@ def main():
 
     generate_maps()
     files: list[tuple[pathlib.Path, str]] = []
-
-    # files.append(run(
-    #     lambda: ConfigurableMStar(
-    #         Config(
-    #             operator_decomposition=True,
-    #             precompute_paths=False,
-    #             precompute_heuristic=True,
-    #             collision_avoidance_table=False,
-    #             recursive=False,
-    #             matching_strategy=MatchingStrategy.SortedPruningPrematch,
-    #             max_memory_usage=3 * GigaByte,
-    #             debug=False,
-    #             report_expansions=False,
-    #         ), 
-    #     ),
-    #     "M*"
-    # ))
-
-    # files.append(run(
-    #     lambda: EPEAStar(),
-    #     "EPEA*"
-    # ))
-
-    # files.append(run(
-    #     lambda: AStarODID(),
-    #     "A*-OD-ID"
-    # ))
-
-    # files.append(run(
-    #     lambda: ICTS(),
-    #     "ICTS"
-    # ))
 
     files.append(run(
         lambda: BCPPrematch(),

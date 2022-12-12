@@ -7,16 +7,12 @@ from mapfmclient import Problem as cProblem, Solution
 
 from python.algorithm import MapfAlgorithm
 
-# cbs_path = "/home/jesse/Documents/GitProjects/CBS/CBSH2-RTC-main/cbs"
+
 cbs_path = "/data/BCP-paper/python/benchmarks/comparison/cbs-inmatch/cbs-inmatch"
 
 
 class CBSSolver(MapfAlgorithm):
     def solve(self, problem: cProblem) -> Solution:
-        # print("Starts: ", problem.starts)
-        # print("Goals: ", problem.goals)
-        # print("Grid: ", problem.grid)
-        # print("width, height: ", problem.width, problem.height)
 
         version_info = "version 1"
         map_path = "temp/" + problem.name
@@ -50,11 +46,9 @@ class CBSSolver(MapfAlgorithm):
         args += ["-k", str(num_of_agents)]
         # print(str(args))
         try:
-            subprocess.run(args, timeout=problem.timeout,
-                       stdout=subprocess.DEVNULL)  # .returncode , stdout=subprocess.DEVNULL
+            subprocess.run(args, timeout=problem.timeout, stdout=subprocess.DEVNULL)
         except Exception as e:
             print(e)
-
         paths = []
         with open("paths.txt", "r") as f:
             re_p = re.compile("(\(\d+,\d+\))")

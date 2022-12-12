@@ -8,8 +8,6 @@ from python.algorithm import MapfAlgorithm
 bcp_mapf_path = "/data/BCP-paper/python/benchmarks/comparison/bcp-inmatch/bcp-inmatch"
 
 
-# bcp_mapf_path = "/home/jesse/Documents/GitProjects/bcp-mapf/build/bcp-mapf"
-
 class BCPSolver(MapfAlgorithm):
     def solve(self, problem: cProblem) -> Solution:
         version_info = "version 1 graph"
@@ -58,14 +56,8 @@ class BCPSolver(MapfAlgorithm):
                 f.write("\n")
             f.close()
 
-        # print(scenario_path)
-        # print(map_path)
-
-        # subprocess.run([bcp_mapf_path, "-f", os.path.join(os.path.dirname(os.path.realpath(__file__)), "temp.scen")])
-
         subprocess.run([bcp_mapf_path, "-f", scenario_path], timeout=problem.timeout,
                        stdout=subprocess.DEVNULL)  # .returncode
-        # print(str(exitvalue))
 
         paths = []
         with open("outputs/" + problem.name.replace(".map", ".sol"), "r") as f:

@@ -10,12 +10,10 @@ from python.benchmarks.graph_times import graph_results
 from python.benchmarks.map import MapGenerator
 from python.benchmarks.parse_map import MapParser
 from python.benchmarks.run_with_timeout import run_with_timeout
-# from python.benchmarks.comparison.icts import ICTS
 from python.benchmarks.util import read_from_file, output_data
 
 this_dir = pathlib.Path(__file__).parent.absolute()
 name = "32x32_12"
-processes = 1
 
 
 def generate_maps():
@@ -68,7 +66,6 @@ def run(solver: Callable[[], MapfAlgorithm], bm_name: str, parse_maps: bool = Tr
         for problem in problem_list:
             problem[1].name = problem[0]
 
-    # with Pool(processes = 1) as p:
     for problems in tqdm(all_problems):
         num_agents = len(problems[0][1].goals)
 
@@ -106,38 +103,6 @@ def main():
 
     generate_maps()
     files: list[tuple[pathlib.Path, str]] = []
-
-    # files.append(run(
-    #     lambda: ConfigurableMStar(
-    #         Config(
-    #             operator_decomposition=True,
-    #             precompute_paths=False,
-    #             precompute_heuristic=True,
-    #             collision_avoidance_table=False,
-    #             recursive=False,
-    #             matching_strategy=MatchingStrategy.SortedPruningPrematch,
-    #             max_memory_usage=3 * GigaByte,
-    #             debug=False,
-    #             report_expansions=False,
-    #         ), 
-    #     ),
-    #     "M*"
-    # ))
-
-    # files.append(run(
-    #     lambda: EPEAStar(),
-    #     "EPEA*"
-    # ))
-
-    # files.append(run(
-    #     lambda: AStarODID(),
-    #     "A*-OD-ID"
-    # ))
-
-    # files.append(run(
-    #     lambda: ICTS(),
-    #     "ICTS"
-    # ))
 
     files.append(run(
         lambda: BCPPrematch(),

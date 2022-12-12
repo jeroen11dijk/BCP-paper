@@ -10,13 +10,15 @@ colors = [
     "0000000"
 ]
 
-linestyles = {"CBSPrematch": '--', "BCPPrematch": '-', "CBS-TA": (5, (10, 3)), "CBSInmatch": ":", "BCPInmatch": '-.', "CBM": (0, (5, 1))}
-labels = {"CBSPrematch": 'CBS-Outmatch', "BCPPrematch": 'BCP-Outmatch', "CBS-TA": 'CBS-TA', "CBSInmatch": 'CBS-Inmatch', "BCPInmatch": 'BCP-Inmatch', "CBM": "CBM"}
+linestyles = {"CBSPrematch": '--', "BCPPrematch": '-', "CBS-TA": (5, (10, 3)), "CBSInmatch": ":", "BCPInmatch": '-.',
+              "CBM": (0, (5, 1))}
+labels = {"CBSPrematch": 'CBS-Outmatch', "BCPPrematch": 'BCP-Outmatch', "CBS-TA": 'CBS-TA', "CBSInmatch": 'CBS-Inmatch',
+          "BCPInmatch": 'BCP-Inmatch', "CBM": "CBM"}
 background = (34, 39, 46)
 
 
 def lighten(r, g, b, amount):
-    return int(min(255, r + 255*amount)), int(min(255, g + 255*amount)), int(min(255, b + 255*amount))
+    return int(min(255, r + 255 * amount)), int(min(255, g + 255 * amount)), int(min(255, b + 255 * amount))
 
 
 def rgb_to_colour(r, g, b, transparency_fraction=None):
@@ -35,7 +37,7 @@ def percentile(l: list[float], perc: float) -> float:
         return -1
 
     l.sort()
-    index = len(l) * (perc/100)
+    index = len(l) * (perc / 100)
 
     i = int(index)
     f = index - i
@@ -91,7 +93,6 @@ def graph_results(*args, under,
         percentage.set_ylim(0, 105)
 
     save_location = args[-1] + "/Graphs"
-    ppydata = []
 
     plt.tight_layout()
 

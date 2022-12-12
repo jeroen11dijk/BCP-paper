@@ -1,21 +1,19 @@
-from mapf_branch_and_bound.bbsolver import solve_bb, compute_sol_cost
-from mapfmclient import MapfBenchmarker, ProgressiveDescriptor, BenchmarkDescriptor, MarkedLocation, \
-    Problem as cProblem, Solution
+import re
+import subprocess
+
+from mapf_branch_and_bound.bbsolver import solve_bb
+from mapfmclient import Problem as cProblem, Solution
+
 from python.algorithm import MapfAlgorithm
 
-import subprocess
-import re
-
-#bcp_mapf_path = "/home/jesse/Documents/GitProjects/bcp-mapf/build/bcp-mapf"
-# bcp_mapf_path = "/home/koos/bcp-mapf/build/bcp-mapf"
 bcp_mapf_path = "/data/BCP-paper/python/benchmarks/comparison/bcp-prematch/bcp-prematch"
 
 
 class BCPSolver(MapfAlgorithm):
-    def solve(self, problem : cProblem) -> Solution:
-        res = solve_bb(problem,self.solve_internal)
+    def solve(self, problem: cProblem) -> Solution:
+        res = solve_bb(problem, self.solve_internal)
         return res
-    
+
     def solve_internal(self, problem: cProblem, bound) -> Solution:
         version_info = "version 1 graph"
         map_path = "temp/" + problem.name
@@ -67,13 +65,13 @@ class BCPSolver(MapfAlgorithm):
         if bound is not None:
             args += ["-u", str(bound + len(problem.starts))]
 
-        subprocess.run(args, timeout = problem.timeout, stdout=subprocess.DEVNULL) #.returncode , stdout=subprocess.DEVNULL
+        subprocess.run(args, timeout=problem.timeout, stdout=subprocess.DEVNULL)
 
         paths = []
         with open("outputs/" + problem.name.replace(".map", ".sol"), "r") as f:
             try:
                 sol_val = int(f.readline())
-            except:        
+            except:
                 return None;
             f.readline()
             re_p = re.compile("(\(\d+,\d+\))")

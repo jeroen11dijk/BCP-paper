@@ -1,13 +1,10 @@
-import time
-
-from mapfmclient import Problem as cProblem, Solution
 import subprocess
+
 import yaml
 from mapfmclient import Problem as cProblem, Solution
 
 from python.algorithm import MapfAlgorithm
 
-# cbs_path = "/home/jesse/Documents/GitProjects/CBS/CBSH2-RTC-main/cbs"
 cbs_ta_path = "/data/BCP-paper/python/benchmarks/comparison/cbs-ta/cbs_ta"
 
 
@@ -43,8 +40,7 @@ class CBSSolver(MapfAlgorithm):
         f.close()
         args = [cbs_ta_path, "-i", scenario_path, "-o", "output.yaml"]
         try:
-            subprocess.run(args, timeout=problem.timeout,
-                           stdout=subprocess.DEVNULL)  # .returncode , stdout=subprocess.DEVNULL
+            subprocess.run(args, timeout=problem.timeout, stdout=subprocess.DEVNULL)
         except Exception as e:
             print(e)
         with open("output.yaml") as output_file:
