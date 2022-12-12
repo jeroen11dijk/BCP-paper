@@ -3,11 +3,10 @@ import os
 import pathlib
 from typing import Optional, Callable
 
-from mapf_branch_and_bound.bbsolver import compute_sol_cost
 from tqdm import tqdm
 
 from python.algorithm import MapfAlgorithm
-from python.benchmarks.comparison import BCPInmatch, BCPPrematch, CBSPrematch, CBSInmatch, CBSTA, CBM # , EPEAStar, CBM, AStarODID,
+from python.benchmarks.comparison import BCPInmatch, BCPPrematch, CBSPrematch, CBSInmatch, CBSTA
 from python.benchmarks.graph_times import graph_results
 from python.benchmarks.map import MapGenerator
 from python.benchmarks.parse_map import MapParser
@@ -112,43 +111,6 @@ def main():
     generate_maps()
     files: list[tuple[pathlib.Path, str]] = []
 
-    # files.append(run(
-    #     lambda: ConfigurableMStar(
-    #         Config(
-    #             operator_decomposition=True,
-    #             precompute_paths=False,
-    #             precompute_heuristic=True,
-    #             collision_avoidance_table=False,
-    #             recursive=False,
-    #             matching_strategy=MatchingStrategy.SortedPruningPrematch,
-    #             max_memory_usage=3 * GigaByte,
-    #             debug=False,
-    #             report_expansions=False,
-    #         ), 
-    #     ),
-    #     "M*"
-    # ))
-
-    # files.append(run(
-    #     lambda: EPEAStar(),
-    #     "EPEA*"
-    # ))
-
-    # files.append(run(
-    #     lambda: CBM(),
-    #     "CBM"
-    # ))
-
-    # files.append(run(
-    #     lambda: AStarODID(),
-    #     "A*-OD-ID"
-    # ))
-
-    # files.append(run(
-    #     lambda: ICTS(),
-    #     "ICTS"
-    # ))
-
     files.append(run(
         lambda: BCPPrematch(),
         "BCPPrematch"
@@ -172,11 +134,6 @@ def main():
     files.append(run(
         lambda: CBSTA(),
         "CBS-TA"
-    ))
-
-    files.append(run(
-        lambda: CBM(),
-        "CBM"
     ))
 
     graph_results(

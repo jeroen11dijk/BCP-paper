@@ -2,11 +2,10 @@ import os
 import pathlib
 from typing import Optional, Callable
 
-from mapf_branch_and_bound.bbsolver import compute_sol_cost
 from tqdm import tqdm
 
 from python.algorithm import MapfAlgorithm
-from python.benchmarks.comparison import BCPInmatch, BCPPrematch, CBSPrematch, CBSInmatch, CBSTA, CBM # , EPEAStar, CBM, AStarODID,
+from python.benchmarks.comparison import BCPInmatch, BCPPrematch, CBSPrematch, CBSInmatch, CBSTA
 from python.benchmarks.graph_times import graph_results
 from python.benchmarks.map import MapGenerator
 from python.benchmarks.parse_map import MapParser
@@ -164,11 +163,6 @@ def main():
     files.append(run(
         lambda: CBSTA(),
         "CBS-TA"
-    ))
-
-    files.append(run(
-        lambda: CBM(),
-        "CBM"
     ))
 
     graph_results(

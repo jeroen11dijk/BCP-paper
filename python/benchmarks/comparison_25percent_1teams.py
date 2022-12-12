@@ -165,11 +165,6 @@ def main():
         "CBS-TA"
     ))
 
-    files.append(run(
-        lambda: CBM(),
-        "CBM"
-    ))
-
     graph_results(
         *files,
         f"{name}",
