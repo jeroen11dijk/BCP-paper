@@ -7,10 +7,11 @@ colors = [
     "#dc267f",
     "#fe6100",
     "#ffb000",
+    "0000000"
 ]
 
-linestyles = {"CBSPrematch": '--', "BCPPrematch": '-', "CBS-TA": (5, (10, 3)), "CBSInmatch": ":", "BCPInmatch": '-.'}
-labels = {"CBSPrematch": 'CBS-Outmatch', "BCPPrematch": 'BCP-Outmatch', "CBS-TA": 'CBS-TA', "CBSInmatch": 'CBS-Inmatch', "BCPInmatch": 'BCP-Inmatch'}
+linestyles = {"CBSPrematch": '--', "BCPPrematch": '-', "CBS-TA": (5, (10, 3)), "CBSInmatch": ":", "BCPInmatch": '-.', "CBM": (0, (5, 1))}
+labels = {"CBSPrematch": 'CBS-Outmatch', "BCPPrematch": 'BCP-Outmatch', "CBS-TA": 'CBS-TA', "CBSInmatch": 'CBS-Inmatch', "BCPInmatch": 'BCP-Inmatch', "CBM": "CBM"}
 background = (34, 39, 46)
 
 
@@ -94,7 +95,7 @@ def graph_results(*args, under,
 
     plt.tight_layout()
 
-    longest = 0
+    longest = 65
 
     for plt_index, (fn, label) in enumerate(args[:-1]):
         with open(fn, "r") as f:

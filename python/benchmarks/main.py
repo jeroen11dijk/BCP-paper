@@ -16,7 +16,7 @@ from python.benchmarks.run_with_timeout import run_with_timeout
 from python.benchmarks.util import output_data, read_from_file
 
 this_dir = pathlib.Path(__file__).parent.absolute()
-name = "warehouse"
+name = "32x32_3"
 
 
 def generate_maps():
@@ -132,7 +132,7 @@ def main():
 
     graph_results(
         *files,
-        batchdir / f"{name}",
+        f"{name}",
         under="number of agents",
         save=True,
         legend=True,
