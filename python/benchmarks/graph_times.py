@@ -90,7 +90,7 @@ def graph_results(*args, under,
     if graph_percentage:
         percentage.set_ylim(0, 105)
 
-    save_location = args[-1]
+    save_location = args[-1] + "/Graphs"
     ppydata = []
 
     plt.tight_layout()
@@ -159,6 +159,4 @@ def graph_results(*args, under,
         plt.legend(facecolor='white', framealpha=1, frameon=True, edgecolor="black", prop={'size': 10})
     plt.show()
     if save:
-        print(save_location)
-        # fig.savefig(f"{save_location}.eps", bbox_inches="tight", pad_inches=0, format='eps')
         fig.savefig(f"{save_location}.png", pad_inches=0, format='png')
