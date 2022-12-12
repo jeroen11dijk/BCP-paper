@@ -34,30 +34,10 @@ add_custom_target(clang-tidy
 
 # clang-format
 set(ALL_SOURCE_FILES
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/libMultiRobotPlanning/a_star.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/libMultiRobotPlanning/a_star_epsilon.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/libMultiRobotPlanning/assignment.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/libMultiRobotPlanning/cbs.hpp
   ${CMAKE_CURRENT_SOURCE_DIR}/include/libMultiRobotPlanning/cbs_ta.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/libMultiRobotPlanning/ecbs.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/libMultiRobotPlanning/ecbs_ta.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/libMultiRobotPlanning/neighbor.hpp
   ${CMAKE_CURRENT_SOURCE_DIR}/include/libMultiRobotPlanning/next_best_assignment.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/libMultiRobotPlanning/planresult.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/libMultiRobotPlanning/sipp.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/example/a_star.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/example/a_star_epsilon.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/example/assignment.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/example/cbs.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/example/cbs_ta.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/example/ecbs.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/example/ecbs_ta.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/example/mapf_prioritized_sipp.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/example/cbs_ta.cppzed_sipp.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/example/next_best_assignment.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/example/shortest_path_heuristic.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/example/shortest_path_heuristic.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/example/sipp.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/example/timer.hpp
 )
 
 add_custom_target(clang-format
@@ -88,98 +68,11 @@ include_directories(
 
 # Examples
 
-## a_star
-add_executable(a_star
-  example/a_star.cpp
-)
-target_link_libraries(a_star
-  ${Boost_LIBRARIES}
-)
-
-## a_star_epsilon
-add_executable(a_star_epsilon
-  example/a_star_epsilon.cpp
-)
-target_link_libraries(a_star_epsilon
-  ${Boost_LIBRARIES}
-)
-
-## assignment
-add_executable(assignment
-  example/assignment.cpp
-)
-target_link_libraries(assignment
-  ${Boost_LIBRARIES}
-)
-
-## cbs_roadmap
-add_executable(cbs_roadmap
-  example/cbs_roadmap.cpp
-)
-target_link_libraries(cbs_roadmap
-  ${Boost_LIBRARIES}
-  yaml-cpp
-)
-
-## cbs
-add_executable(cbs
-  example/cbs.cpp
-)
-target_link_libraries(cbs
-  ${Boost_LIBRARIES}
-  yaml-cpp
-)
-
 ## cbs_ta
 add_executable(cbs_ta
   example/cbs_ta.cpp
 )
 target_link_libraries(cbs_ta
-  ${Boost_LIBRARIES}
-  yaml-cpp
-)
-
-## ecbs
-add_executable(ecbs
-  example/ecbs.cpp
-)
-target_link_libraries(ecbs
-  ${Boost_LIBRARIES}
-  yaml-cpp
-)
-
-## ecbs_ta
-add_executable(ecbs_ta
-  example/ecbs_ta.cpp
-)
-target_link_libraries(ecbs_ta
-  ${Boost_LIBRARIES}
-  yaml-cpp
-)
-
-## next_best_assignment
-add_executable(next_best_assignment
-  example/next_best_assignment.cpp
-)
-target_link_libraries(next_best_assignment
-  ${Boost_LIBRARIES}
-  yaml-cpp
-)
-
-## sipp
-add_executable(sipp
-  example/sipp.cpp
-)
-target_link_libraries(sipp
-  ${Boost_LIBRARIES}
-  yaml-cpp
-)
-
-## mapf_prioritized_sipp
-add_executable(mapf_prioritized_sipp
-  example/mapf_prioritized_sipp.cpp
-)
-target_link_libraries(mapf_prioritized_sipp
   ${Boost_LIBRARIES}
   yaml-cpp
 )
